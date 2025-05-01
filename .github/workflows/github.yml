@@ -21,4 +21,4 @@ jobs:
           npm i
           pm2 restart 0
           pm2 save
-          systemctl restart nginx.service
+          sudo systemctl restart nginx.service
