@@ -19,4 +19,6 @@ jobs:
           node-version: ${{matrix.node-version}}
       - run: |
           npm i
-          pm2 start index.js
+          pm2 restart 1
+          pm2 save
+          sudo systemctl restart nginx.service

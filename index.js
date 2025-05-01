@@ -1,10 +1,14 @@
 const http = require("http")
+const express = require("express")
 const PORT = 9010
 const IP = '127.0.0.1'
 
-const server = http.createServer((req,res)=>{
-    res.end("hello World")
+const app = express()
+app.get("/",(req,res,next)=>{
+    res.send("Hello World")
 })
+
+const server = http.createServer(app)
 
 server.listen(PORT,IP,(err)=>{
     if(!err){
