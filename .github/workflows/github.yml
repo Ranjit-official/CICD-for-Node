@@ -1,24 +1,25 @@
-# .github/workflows/install-nginx-selfhosted.yml
-name: Install Nginx on Self-Hosted Runner
+name: Testing nginx if its in pr and hosting if in main
 
 on:
   push:
     branches: [main]
+
   pull_request:
     branches: [main]
 
-jobs:
+jobs : 
   install-nginx:
-    runs-on: self-hosted # Target your self-hosted runner
-
-    steps:
+    runs-on: self-hosted
+  
+  on-pull-request:
+    runs-on : self-hosted
+    if: github.event_name == 'pull_request'
+    steps :
       - uses: actions/checkout@v2
       - name: Use Node.js ${{matrix.node-verison}}
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.node-version}}
-      - run: |
-          npm i
-          pm2 restart 0
-          pm2 save
-          sudo systemctl restart nginx.service
+      - name: Testing nginx
+        run : nginx -t
+        
